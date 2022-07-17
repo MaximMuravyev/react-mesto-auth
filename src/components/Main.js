@@ -12,9 +12,15 @@ function Main({
   onCardDelete
 }) {
 
-  const cardsElements = cards.map((card) =>
-    <Card card={card} key={card._id} onCardClick={onCardClick} onCardLike={onCardLike} onCardDelete={onCardDelete} />
-  );
+  const cardsElements = cards.map((card) => ( 
+    <Card
+      card={card}
+      key={card._id}
+      onCardClick={onCardClick}
+      onCardLike={onCardLike}
+      onCardDelete={onCardDelete}
+    />
+  ));
 
   const currentUser = useContext(CurrentUserContext);
 

@@ -39,15 +39,16 @@ function App() {
   const navigate = useNavigate();
 
   const handleTokenCheck = () => {
-    let jwt = localStorage.getItem("token");
+    const jwt = localStorage.getItem("token");
     if (jwt){
-      auth.checkToken(jwt).then((data) => {
+      auth.checkToken(jwt).then((data) => { 
         if (data.data.email) {
           setUserData({
             userData: data.data._id,
             email: data.data.email,
           });
           setLoggedIn(true);
+          navigate("/");
         }
       }).catch((error) => console.log(error));
     }
@@ -55,7 +56,7 @@ function App() {
 
   useEffect(() => {
     handleTokenCheck();
-  }, [])
+  }, []);
 
   useEffect(() => {
     if (loggedIn === true) {
@@ -122,7 +123,10 @@ function App() {
 
   function updateUser(data) {
     api.changeUser(data)
-      .then(data => setCurrentUser(data), closeAllPopups())
+      .then(data => {
+        setCurrentUser(data);
+        closeAllPopups();
+      })
       .catch(error => console.log(error))
   }
 
@@ -138,7 +142,10 @@ function App() {
 
   function handleUpdateAvatar(data) {
     api.changeAvatar(data)
-      .then(profile => setCurrentUser(profile), closeAllPopups())
+      .then(profile => {
+        setCurrentUser(profile); 
+        closeAllPopups()
+      })
       .catch(error => console.log(error))
   }
 
